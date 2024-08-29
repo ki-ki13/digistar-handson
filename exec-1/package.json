@@ -1,0 +1,14 @@
+{
+  "name": "exec-1",
+  "version": "1.0.0",
+  "description": "exercise for day 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "exercise"
+  ],
+  "author": "QQ",
+  "license": "ISC"
+}
