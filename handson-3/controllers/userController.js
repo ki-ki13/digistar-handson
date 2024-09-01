@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 const { filterSensitiveInfo } = require("../helper/helper");
 const { database } = require("../model/database");
 
-let nextId = 2;
+let nextId = 3;
 
 class UserController {
   static async getAllUsers(req, res) {
@@ -16,25 +16,27 @@ class UserController {
     });
   }
 
-  static async updateUser(req,res) {
+  static async updateUser(req, res) {
     const userId = req.user.id;
     const updateData = req.body;
 
-    const userIndex = database.findIndex((user)=>user.id == userId);
-    if(userIndex === -1){
-        return res.status(404).json({message:"User tidak ditemukan"});
+    const userIndex = database.findIndex((user) => user.id == userId);
+    if (userIndex === -1) {
+      return res.status(404).json({ message: "User tidak ditemukan" });
     }
 
     const updateUser = {
-        ...database[userIndex],
-        ...updateData
-    }
+      ...database[userIndex],
+      ...updateData,
+    };
     database[userIndex] = updateUser;
-    return res.json({message:"Data user berhasil diupdate", user:updateUser})
+    return res.json({
+      message: "Data user berhasil diupdate",
+      user: updateUser,
+    });
   }
 
-
-  static async removeUser(req,res) {
+  static async removeUser(req, res) {
     const userId = parseInt(req.params.id, 10);
 
     const userIndex = database.findIndex((user) => user.id === userId);
@@ -63,11 +65,10 @@ class UserController {
       id: nextId++,
     };
     database.push(newUser);
-    res.send(
-      `User berhasil ditambahkan: ${JSON.stringify(
-        filterSensitiveInfo(newUser)
-      )}`
-    );
+    return res.json({
+      message: "User berhasil ditambahkan",
+      user: filterSensitiveInfo(newUser),
+    });
   }
 }
 

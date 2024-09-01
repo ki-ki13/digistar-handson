@@ -27,7 +27,7 @@ const validateAddUser = [
 
 const userLogin = (req, res, next) => {
     const credentials = req.body;
-  
+
     const validUser = database.find(
       (user) => user.email === credentials.email && user.password === credentials.password
     );
